@@ -1,0 +1,234 @@
+/* src/App.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.App {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 600px; /* Fixed standard width */
+  /* --- ADJUSTED: Smaller min-height --- */
+  min-height: 380px; /* A more compact minimum height for when there are no todos */
+
+  display: flex;
+  flex-direction: column;
+}
+
+.app-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.todo-form {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.todo-input {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Base button styles for consistency */
+.todo-button,
+.edit-button,
+.delete-button,
+.todo-cancel-button,
+.mark-all-button,
+.delete-completed-button,
+.filter-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.todo-button {
+  background-color: #28a745; /* Green */
+}
+
+.todo-button:hover {
+  background-color: #218838;
+}
+
+.todo-cancel-button {
+  background-color: #6c757d; /* Gray */
+  margin-left: 10px;
+}
+
+.todo-cancel-button:hover {
+  background-color: #5a6268;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  /* flex-grow: 1; */ /* Optional: allows list to grow and fill remaining vertical space */
+}
+
+.todo-item {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.todo-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.todo-text {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  cursor: pointer;
+  font-size: 17px;
+  color: #333;
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.todo-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.edit-button {
+  background-color: #007bff; /* Blue */
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: #dc3545; /* Red */
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* --- Controls Section --- */
+
+.stats-and-controls {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-indicators {
+  display: flex;
+  justify-content: space-around;
+  background-color: #e9ecef;
+  padding: 10px;
+  border-radius: 4px;
+  color: #333;
+  font-weight: 500;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.task-indicators p {
+  margin: 0;
+}
+
+.task-indicators strong {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mark-all-button {
+  background-color: #6f42c1; /* Purple */
+}
+
+.mark-all-button:hover {
+  background-color: #5a35a7;
+}
+
+.delete-completed-button {
+  background-color: #dc3545; /* Red */
+}
+
+.delete-completed-button:hover {
+  background-color: #c82333;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.filter-button {
+  background-color: #007bff; /* Blue */
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid #007bff;
+}
+
+.filter-button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.filter-button.active {
+  background-color: #fff;
+  color: #007bff;
+  border-color: #007bff;
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+
+.filter-button.active:hover {
+  background-color: #f8f9fa;
+}
+
+.no-todos-message {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.1em;
+  padding: 20px 0;
+  margin-top: 20px; /* Space above the message if list is empty */
+  border: 1px dashed #e0e0e0;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+}
