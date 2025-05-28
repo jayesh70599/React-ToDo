@@ -5,7 +5,7 @@ const TodoForm = ({ addTodo, editingTodo, updateTodo, setEditingTodo }) => {
 
   useEffect(() => {
     if (editingTodo) {
-      setText(editingTodo.text);
+      setText(editingTodo.title);
     } else {
       setText('');
     }
@@ -16,7 +16,7 @@ const TodoForm = ({ addTodo, editingTodo, updateTodo, setEditingTodo }) => {
     if (!text.trim()) return;
 
     if (editingTodo) {
-      updateTodo({ ...editingTodo, text: text.trim() });
+      updateTodo({ ...editingTodo, title: text.trim() });
       setEditingTodo(null);
     } else {
       addTodo(text.trim());

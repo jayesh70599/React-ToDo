@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 
 const App = () => {
@@ -15,12 +16,7 @@ const App = () => {
   const fetchInitialTodos = async () => {
     try {
       const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=5');
-      const data = await response.json();
-      const initialTodos = data.map((todo) => ({
-        id: todo.id,
-        text: todo.title,
-        completed: todo.completed,
-      }));
+      const initialTodos = await response.json();
       setTodos(initialTodos);
     } catch (error) {
       console.error('Error fetching initial todos:', error);
@@ -28,13 +24,29 @@ const App = () => {
     }
   };
 
-  const addTodo = (text) => {
+  const addTodo = async (text) => {
     const newTodo = {
-      id: Date.now(),
-      text,
+      title: text,
       completed: false,
     };
-    setTodos([...todos, newTodo]);
+
+     try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
+        method: 'POST',
+        body: JSON.stringify(newTodo),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      const addedtodo = await response.json();
+      console.log(addedtodo);
+      addedtodo.id = uuidv4();
+      setTodos((prevtodos) => [...prevtodos, addedtodo]);
+      //toast.success('Task added successfully');
+    } catch (error) {
+      console.log('Error adding task:', error);
+      //toast.error('Error adding task');
+    }
   };
 
   const toggleComplete = (id) => {
@@ -47,18 +59,34 @@ const App = () => {
 
   const deleteTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
+    setEditingTodo(null); //added
   };
 
   const startEditing = (todo) => {
     setEditingTodo(todo);
   };
 
-  const updateTodo = (updatedTodo) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === updatedTodo.id ? updatedTodo : todo
-      )
-    );
+  const updateTodo = async (updatedTodo) => {
+
+     try {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${updatedTodo.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updatedTodo),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      const updatedtodoData = await response.json();
+      setTasks((prevtodos) =>
+        prevtodos.map((todo) =>
+          todo.id === updatedTodo.id ? { ...todo, title: updatedtodoData.title } : todo
+        )
+      );
+      //toast.success('Task updated successfully');
+    } catch (error) {
+      console.log('Error updating task:', error);
+      //toast.error('Error updating task');
+    }
     setEditingTodo(null);
   };
 
